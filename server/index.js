@@ -3,29 +3,33 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const path = require("path"); // ADD THIS
 
-// IMPORT YOUR SCHEMAS HERE
-//require("./models/Profiles"); //This is just an example. Don't forget to delete this
-require("./models/Users"); // my schema attempt 
+require("./models/Users");
 
 const app = express();
 
-// This is where your API is making its initial connection to the database
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DATABASE_CONNECTION_STRING, {
-  useNewUrlParser: true,
-});
+mongoose
+  .connect(process.env.DATABASE_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB has been connected"))
+  .catch((err) => console.log(err));
 
 app.use(bodyParser.json());
 
-// IMPORT YOUR API ROUTES HERE
-// Below is just an example. Don't forget to delete it. 
-// It's importing and using everything from the profilesRoutes.js file and also passing app as a parameter for profileRoutes to use
-//require("./routes/profilesRoutes")(app); 
-require("./routes/usersRoutes")(app); // my routers for users and registering new users
-require("./routes/loginRoutes")(app); // router for login
+require("./routes/usersRoutes")(app);
+require("./routes/loginRoutes")(app);
 
-const PORT = process.env.PORT;
+// ADD THESE TWO LINES:
+app.use(express.static(path.resolve(__dirname, "./client/build")));
+app.get("*", function (request, response) {
+  response.sendFile(path.resolve(__dirname, "./client/build", "index.html"));
+});
+
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`API running on port ${PORT}`);
 });
