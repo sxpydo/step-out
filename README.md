@@ -1,106 +1,142 @@
-# Black Codher Personal Project
+# Step Out 👟
 
-🎉 **Welcome to your Black Codher Personal Project** 🎉
+**Step Out** is a full-stack MERN web application designed to improve personal safety for people walking alone - whether commuting at night, travelling to an unknown area, or simply wanting peace of mind.
 
-Here's some boilerplate code with the initial setup for your project.
+The app connects users with **guardians**, trusted contacts who are available to communicate when someone feels unsafe. Users can either seek a guardian for support, or be a guardian for others.
 
-The expectation with this code is that you're able to clone the repository and get started building your own fullstack (MERN) application.
+🌐 **Live App:** [step-out-ed42c86ae8aa.herokuapp.com](https://step-out-ed42c86ae8aa.herokuapp.com/)
 
-- [Project Structure](#project-structure)
-  - [Client](#client)
-  - [Server](#server)
-- [Getting Started](#getting-started)
-  - [Populating The Database](#populating-the-database)
-  - [Starting The Development Server](#starting-the-development-server)
-  - [Example Application](#example-application)
-- [What's Next?!](#whats-next)
+---
+
+## The Problem
+
+Feeling unsafe whilst walking alone is a widespread issue. According to the UK Office for National Statistics:
+
+- 1 in 2 women and 1 in 5 men felt unsafe walking alone after dark in a busy public place
+- 4 in 5 women and 2 in 5 men felt unsafe walking alone after dark in a park or open space
+- 6 out of 10 people who reported feeling unsafe during the day had altered their behaviour as a result
+
+Many people already call friends or family when walking alone just to feel safer, but what if those people aren't available? Step Out aims to solve that.
+
+---
+
+## Features
+
+- User registration and login
+- Guardian system, users can register as a guardian or find one
+- Calendar to manage guardian availability
+- Settings to manage your profile
+- Responsive design across desktop and mobile
+
+---
+
+## Future Plans
+
+- **Live GPS location sharing:** so users can share their journey with guardians without needing a phone call, similar to sharing an Uber journey
+- **NOW feature:** one tap to send a message, live GPS location, and an SOS call to selected guardians in an emergency
+- **Chatbot fallbac:k** if all guardians are unavailable, a chatbot can keep the user company and log the conversation, which can be sent directly to emergency services if needed
+
+---
+
+## Tech Stack
+
+- **MongoDB** - Database
+- **Express.js** - Backend framework
+- **React.js** - Frontend framework
+- **Node.js** -  Runtime environment
+- **Axios** - HTTP requests
+- **React Router** - Client-side routing
+- **dotenv** - Environment variable management
+- **Heroku** - Deployment
+
+The codebase was designed with reusability and efficiency in mind, using React components, API controllers and concise Mongoose models.
+
+---
 
 ## Project Structure
 
-The initial structure of the repository is:
-
-```plain
-- README.md
-- client/
-  - public/
-  - src/
-    - services/
-    - index.js
-    - App.js
-  - README.md
-- server/
-  - data/
-  - models/
-  - routes/
-  - index.js
-  - README.md
+```
+step-out/
+├── client/               # React frontend
+│   └── src/
+│       ├── components/   # React components (SignUp, LogIn, Home, Dashboard, etc.)
+│       ├── images/       # Local image assets
+│       ├── styles/       # CSS stylesheets
+│       ├── services/     # API service functions
+│       └── App.js
+├── server/               # Express backend
+│   ├── models/           # Mongoose schemas
+│   ├── routes/           # API routes
+│   └── index.js
+├── .gitignore
+├── package.json
+└── Procfile
 ```
 
-### Client
-
-The client folder is where you will store your front end code. Currently this contains a new project created with `create-react-app` and an example of how to call an API that's in active development.
-
-✋🏾 **Put your React code here** ✋🏾
-
-Read the `client/` [README](./client/README.md) for more details of the example front end app provided
-
-### Server
-
-The server folder is where you will store your backend code. You'll be building your API and making queries to your database here.
-
-✋🏾 **Put your Node code here**✋🏾
-
-Read the `server/` [README](./server/README.md) for more details of the example API provided
+---
 
 ## Getting Started
 
-### Environment variables
+### Prerequisites
 
-We have provided you with an example environment variables file called [`.env.example`](./.env.example). Rename this file to `.env` to use it.
+- Node.js installed
+- A [MongoDB Atlas](https://www.mongodb.com/atlas) account with a cluster set up
 
-In here you should assign your database connection string to the `DATABASE_CONNECTION_STRING` variable.
+### Installation
 
-Make sure your connection string has the correct database name you are trying to connect to and follows this format:
+1. Clone the repository:
 
-```plain
-mongodb+srv://<username>:<password>@cluster0.7k5er.mongodb.net/<database_name>
+```bash
+git clone https://github.com/sxpydo/step-out.git
+cd step-out
 ```
 
-For the example app the database name is `example_db`.
+2. Install all dependencies (root + client):
 
-You'll also see the `PORT` for your API in this file. Do not change this `PORT` number.
+```bash
+npm run dev-install
+```
 
-🛑 **YOUR ENVIRONMENT VARIABLES SHOULD NEVER BE COMMITED AND THE `.env` FILE HAS ALREADY BEEN ADDED TO THE [`.gitignore`](./.gitignore).** 🛑
+3. Create a `.env` file in the root directory:
 
-### Populating The Database
+```
+DATABASE_CONNECTION_STRING=mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/<database_name>?retryWrites=true&w=majority
+PORT=8080
+```
 
-If you choose to populate your database with some initial data you can do so using seed data. We have provided an example of seed data in the [`data.example/`](./server/data.example) folder in a file called [`profiles.mongodb`](server/data.example/profiles.mongodb).
+4. Start the development servers:
 
-All you need to do is rename the `data.example` folder to `data` and then create a `.mongodb` file that will create and insert data into your database and the correct collection(s).
+```bash
+# In one terminal - frontend on http://localhost:3000
+cd client && npm start
 
-To get the example app up and running you need to create an `example_db` database, a `profiles` collection and inserting some profile data. This can all be done by running the [`profiles.mongodb`](server/data.example/profiles.mongodb) file in your MongoDB playground.
+# In another terminal - backend on http://localhost:8080
+cd server && node index.js
+```
 
-If successful you should see 4 documents in your newly created `profiles` collection, in your new `example_db` database.
+---
 
-🛑 **YOU SHOULD NOT COMMIT YOUR INITIAL DATA. THE `data/`FOLDER HAS ALREADY BEEN ADDED TO THE [`.gitignore`](./.gitignore).** 🛑
+## Deployment
 
-### Starting The Development Server
+The app is deployed on **Heroku**. Environment variables are set in Heroku's Config Vars:
 
-You can start the client side code (front-end) and server side (back-end) separately using the commands in their respective folders. If you prefer to start them all together (this is the most convienient way), you can do so with the following commands:
+| Key | Value |
+|-----|-------|
+| `DATABASE_CONNECTION_STRING` | Your MongoDB Atlas connection string |
+| `NODE_ENV` | `production` |
+| `PORT` | `5000` |
 
-1. `npm run dev-install` to install all the dependencies
-2. `npm run develop` to start the development servers - [localhost:3000](http://localhost:3000) for front end and [localhost:8080](http://localhost:8080)
+To deploy updates:
 
-Please note that you will only need to run `npm run dev-install` once during your first installation, subsequently you will only need to run `npm run develop` to get your development environment up and running.
+```bash
+git add .
+git commit -m "your message"
+git push heroku main
+git push origin main
+```
 
-When making file changes to either your front or back end code your app will automatically restart and reload for you.
+---
 
-### Example Application
+## About
 
-We have created an example application that will display a list of profiles that are stored in the `example_db` database.
-
-If all's well with the above steps, you should see a list of familiar names. If your browser shows "No profiles found", re-check all the steps to ensure your database is populated and everything is connected properly.
-
-## What's Next?!
-
-Now it's time to start building your project.
+Built by [@sxpydo](https://github.com/sxpydo) as a personal project for the **Black CodHer** bootcamp, a programme supporting women from underrepresented backgrounds into tech careers.
