@@ -29,7 +29,10 @@ const SignUp = (props) => {
       password: password,
     };
 
-    const response = await axios.post("http://localhost:8080/api/user", user);
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/login`,
+      user,
+    );
     if (response.status === 201) {
       props.setUser(response.data.user);
       localStorage.setItem("user", response.data.user);

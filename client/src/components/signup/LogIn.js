@@ -17,7 +17,10 @@ const LogIn = (props) => {
     e.preventDefault();
     const user = { email: email, password: password };
 
-    const response = await axios.post("http://localhost:8080/api/login", user);
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/api/login`,
+      user,
+    );
     if (response.status === 200) {
       props.setUser(response.data.user);
       localStorage.setItem("user", response.data.user);
@@ -29,7 +32,7 @@ const LogIn = (props) => {
 
   return (
     <>
-    <Nav />
+      <Nav />
       <div className="flexible-layout">
         <div className="image-layout">
           <img
