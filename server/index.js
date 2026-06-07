@@ -3,7 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const path = require("path"); // ADD THIS
 
 require("./models/Users");
 
@@ -22,11 +21,6 @@ app.use(bodyParser.json());
 
 require("./routes/usersRoutes")(app);
 require("./routes/loginRoutes")(app);
-
-app.use(express.static(path.resolve(__dirname, "../client/build")));
-app.get("*", function (request, response) {
-  response.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
-});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
