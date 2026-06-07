@@ -4,7 +4,7 @@
 
 The app connects users with **guardians**, trusted contacts who are available to communicate when someone feels unsafe. Users can either seek a guardian for support, or be a guardian for others.
 
-🌐 **Live App:** [step-out-ed42c86ae8aa.herokuapp.com](https://step-out-ed42c86ae8aa.herokuapp.com/)
+🌐 **Live App:** [step-out-0121.vercel.app](https://step-out-0121.vercel.app)
 
 ---
 
@@ -43,11 +43,12 @@ Many people already call friends or family when walking alone just to feel safer
 - **MongoDB** - Database
 - **Express.js** - Backend framework
 - **React.js** - Frontend framework
-- **Node.js** -  Runtime environment
+- **Node.js** - Runtime environment
 - **Axios** - HTTP requests
 - **React Router** - Client-side routing
 - **dotenv** - Environment variable management
-- **Heroku** - Deployment
+- **Render** - Backend deployment
+- **Vercel** - Frontend deployment
 
 The codebase was designed with reusability and efficiency in mind, using React components, API controllers and concise Mongoose models.
 
@@ -70,7 +71,7 @@ step-out/
 │   └── index.js
 ├── .gitignore
 ├── package.json
-└── Procfile
+└── README.md
 ```
 
 ---
@@ -104,39 +105,35 @@ DATABASE_CONNECTION_STRING=mongodb+srv://<username>:<password>@cluster0.xxxxx.mo
 PORT=8080
 ```
 
-4. Start the development servers:
+4. Create a `.env` file in the `client` directory:
+
+```
+REACT_APP_API_URL=http://localhost:8080
+```
+
+  5. Start the development servers:
 
 ```bash
 # In one terminal - frontend on http://localhost:3000
 cd client && npm start
-
+ 
 # In another terminal - backend on http://localhost:8080
 cd server && node index.js
-```
 
 ---
 
 ## Deployment
 
-The app is deployed on **Heroku**. Environment variables are set in Heroku's Config Vars:
-
-| Key | Value |
-|-----|-------|
-| `DATABASE_CONNECTION_STRING` | Your MongoDB Atlas connection string |
-| `NODE_ENV` | `production` |
-| `PORT` | `5000` |
-
-To deploy updates:
-
-```bash
-git add .
-git commit -m "your message"
-git push heroku main
-git push origin main
-```
+The app is split across two platforms:
+ 
+| Part | Platform | URL |
+|------|----------|-----|
+| Frontend | Vercel | [step-out-0121.vercel.app](https://step-out-0121.vercel.app) |
+| Backend | Render | https://step-out-esw0.onrender.com |
 
 ---
 
 ## About
 
 Built by [@sxpydo](https://github.com/sxpydo) as a personal project for the **Black CodHer** bootcamp, a programme supporting women from underrepresented backgrounds into tech careers.
+```
